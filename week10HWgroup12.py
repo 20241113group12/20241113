@@ -61,6 +61,7 @@ test_predictions = model.predict(X_test)
 
 # 輸出結果
 test_data["y_pred"] = test_predictions
-output_path = "C:/Users/Administrator/Desktop/archive/test_predictions.csv"
+# output_path = "C:/Users/Administrator/Desktop/archive/test_predictions.csv"
+output_path = "C:/Users/yuchia/Desktop/archive/test_predictions.csv"
 test_data.to_csv(output_path, index=False)
 print(f"Predictions saved to: {output_path}")
