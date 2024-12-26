@@ -9,7 +9,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
 
 # 1. Data Loading
-file_path = "C:/Users/yuchia/Desktop/Python/期末專題/California House Price/1553768847-housing.csv"
+file_path = "C:/Users/yuchia/Desktop/作業/Python/期末專題/California House Price/1553768847-housing.csv"
 data = pd.read_csv(file_path)
 
 # 2. Data Cleaning and Preprocessing
