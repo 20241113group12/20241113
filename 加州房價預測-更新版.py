@@ -27,6 +27,27 @@ print(f"房價變異數: {data['median_house_value'].var():,.2f}")
 print(f"房價標準差: {data['median_house_value'].std():,.2f}")
 print()
 
+# 原始房價分布
+plt.figure(figsize=(12, 6))
+plt.hist(data["median_house_value"], bins=25, color="skyblue", alpha=0.7, edgecolor='black')
+plt.title("Original House Price Distribution")
+plt.xlabel("House Price")
+plt.ylabel("Frequency")
+plt.show()
+
+# 平均房價按平均房間數（RM）劃分
+data["RM"] = data["total_rooms"] / data["households"]
+data["RM_rounded"] = data["RM"].round(0).astype(int)
+grouped_data = data.groupby("RM_rounded")["median_house_value"].mean()
+grouped_data = grouped_data.round(2)
+grouped_data.plot(kind='bar', color='skyblue', edgecolor='black')
+plt.title("Average House Price by Number of Rooms (Rounded)")
+plt.xlabel("Number of Rooms (Rounded)")
+plt.ylabel("Average House Price")
+plt.xticks(rotation=0, fontsize=10)
+plt.gcf().set_size_inches(15, 5)
+plt.show()
+
 # 2. 資料清理與預處理
 data.dropna(inplace=True)  # 處理缺失值
 data = pd.get_dummies(data, columns=["ocean_proximity"], drop_first=True)  # 處理分類變數
@@ -49,24 +70,12 @@ else:
 # 替換目標變量為經過變換的數據
 target = target_transformed
 
-# 目標變數的分布可視化（處理偏態前與後）
-plt.figure(figsize=(12, 6))
-
-# 原始房價分布
-plt.subplot(1, 2, 1)
-plt.hist(data["median_house_value"], bins=25, color="skyblue", alpha=0.7, edgecolor='black')
-plt.title("Original House Price Distribution")
-plt.xlabel("House Price")
-plt.ylabel("Frequency")
-
 # 經過偏態處理後的房價分布
-plt.subplot(1, 2, 2)
+plt.figure(figsize=(12, 6))
 plt.hist(target_transformed, bins=25, color="orange", alpha=0.7, edgecolor='black')
 plt.title("Transformed House Price Distribution")
 plt.xlabel("House Price (Transformed)")
 plt.ylabel("Frequency")
-
-plt.tight_layout()
 plt.show()
 
 # 3. 資料標準化
